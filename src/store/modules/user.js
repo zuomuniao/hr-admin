@@ -28,7 +28,6 @@ const actions = {
   },
   async getInfo (context) {
     const res = await getInfo()
-    console.log(res.userId)
     const res1 = await getUserDetailById(res.userId)
     context.commit('setUserInfo', { ...res, ...res1 })
   },

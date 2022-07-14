@@ -17,8 +17,6 @@ request.interceptors.request.use(function (config) {
   if (token) {
     // 主动介入 类似我们自己每天打开支付宝看时间到了没有，到了就去做
     const time = Date.now() - getTime()
-    console.log(getTime())
-    console.log(time)
     // 2 * 60 * 60 * 1000 2个小时
     if (time > 7200000) {
       store.dispatch('user/logout')

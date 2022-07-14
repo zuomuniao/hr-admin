@@ -55,10 +55,10 @@ export const constantRoutes = [
     }]
   },
   {
-    path: '/',
+    path: '/ceshi',
     component: Layout,
     children: [{
-      path: 'ceshi',
+      path: '',
       name: 'ceshi',
       component: () => import('@/views/ceshi/index'),
       meta: { title: '测试', icon: 'dashboard' }
