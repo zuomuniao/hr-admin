@@ -59,7 +59,6 @@
         @click.native.prevent="handleLogin"
         >登录</el-button
       >
-
       <div class="tips">
         <span style="margin-right: 20px">账号: 13800000002</span>
         <span> 密码: 123456</span>
@@ -117,14 +116,14 @@ export default {
       })
     },
     handleLogin () {
-      // valid
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(() => {
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
-          }).catch(() => {
+          }).catch((err) => {
+            console.log(err)
             this.loading = false
           })
         } else {

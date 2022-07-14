@@ -37,6 +37,14 @@ Vue.use(ElementUI, { locale })
 // 控制台有一个生产提示，不重要
 Vue.config.productionTip = false
 
+// 批量导入自定义指令 作用可以简化指令的写法
+// 可以把所有的按需导出的全部导入到一个对象中，对象名字叫directives
+import * as obj from '@/directives'// 得到一个对象
+// Object.keys(obj) // ['imgerror','abc']
+Object.keys(obj).forEach(item => {
+  Vue.directive(item, obj[item])
+})
+
 new Vue({
   el: '#app',
   router,
