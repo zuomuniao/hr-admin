@@ -33,6 +33,45 @@ http://127.0.0.1:9528/%20abc/api/sys/login
 要学会调试
 
 1. 单行调试一行一行 console.log
+
+- console.log(1) 还要打印变量的值 undefined
+
 2. 只要是 ajax 看载荷 和 响应回来的数据 传的参数载荷效果出不来 把线上的写好看它载荷
 3. 把报错去百度
 4. 报错一堆英语去翻译
+
+```js
+.catch((err) => {
+          console.log(err);
+          this.$message.error("abc");
+        });
+```
+
+数据驱动 数据变了 视图没有变
+
+1. 加 v-if
+2. 加 nextTick
+3. 把代码写在定时器里面
+
+刚开始的时候数据没有，但是子组件已经初始化了，这个时候 props 写的是 required:true,然后刚开始的时候传进去的是 undefined
+
+动态路由：有的用户能看到的页面多，有的用户能看到的页面少
+因为他们的权限不一样
+管理员可以看到所有的页面
+普通用户只能看几个页面
+
+有些页面路由规则是后期加上去的
+
+有些页面所有的人都可以看的，有些页面只有有对应权限才可以看
+
+<!-- 静态路由表 -->
+
+const constantRoutes = [
+{path:'/login',component:}
+]
+
+<!-- 动态路由表 -->
+
+const asyncRoutes = []
+
+配套视频

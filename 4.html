@@ -7,20 +7,13 @@
     <title>Document</title>
   </head>
   <body>
+    <!-- <h1>123</h1> -->
+    模板的写法 写的是html 这种方式简单 但是不够灵活 因为html没有逻辑
     <script>
-      async function fn() {
-        return Promise.reject(new Error("200"));
-      }
-
-      var res = fn();
-      res
-        .then(function (res) {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$message.error("abc");
-        });
+      // render函数写法，这种写法麻烦 但是灵活 if..else
+      var h1 = document.createElement("h1");
+      h1.innerHTML = "123";
+      document.body.append(h1);
     </script>
   </body>
 </html>

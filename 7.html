@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+      Vue.component("my-comp", {
+        props: {
+          level: {
+            type: Number,
+            required: true,
+          },
+        },
+        template: `
+          <h1 v-if="level===1">hello</h1>
+          <h2 v-else-if="level===2">hello</h2>
+          <h3 v-else-if="level===3">hello</h3>
+          <h4 v-else-if="level===4">hello</h4>
+          <h5 v-else-if="level===5">hello</h5>
+          <h6 v-else>hello</h6>
+        `,
+      });
+      new Vue({
+        data() {
+          return {
+            msg: "hello world",
+          };
+        },
+        template: `
+          <my-comp :level="2" />
+        `,
+      }).$mount("#app");
+    </script>
+  </body>
+</html>
+
+<!-- <abc :level="1">hello</abc> -> <h1>hello</h1>
+<abc :level="2">hello</abc> -> <h2>hello</h2> -->

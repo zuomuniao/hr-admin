@@ -8,7 +8,7 @@ import router from '@/router'
 import store from '@/store'
 const request = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
-  timeout: 5000
+  timeout: 8000
 })
 // 添加请求拦截器
 request.interceptors.request.use(function (config) {

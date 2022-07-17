@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var arr = [2, 3, 4];
+      var arr1 = [...arr];
+
+      // 浅拷贝写法 只能拷贝一层 深拷贝只能用递归来做 deepClone
+      // Object.assign
+
+      // 深拷贝只能用JSON.parse(JSON.stringify(obj)) 这种写法有缺点 会导致对象身上的方法丢失掉
+      // 如果对象身上有方法只能用递归来做深拷贝
+      var obj = { name: "zs" };
+      var obj1 = { ...obj }; //或Object.assign
+    </script>
+  </body>
+</html>
