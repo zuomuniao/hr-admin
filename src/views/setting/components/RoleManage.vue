@@ -45,7 +45,10 @@
     </el-row>
     <!-- 分配权限 -->
     <el-dialog title="分配权限" :visible.sync="rightVisible" width="20%">
+      <!-- 只要是vue的项目，当你出现一个很奇怪的问题的时候，可以试一试v-if或$nextTick,或setTimeout  数据没有同步更新 -->
+      <!-- v-if作用：保证每次对话框关闭的时候 让tree销毁，再显示对话框的时候，看到的tree是一个新的el-tree  -->
       <el-tree
+        v-if="rightVisible"
         ref="myTree"
         :data="permissions"
         :props="{ label: 'name' }"
