@@ -127,7 +127,7 @@ const asyncRoutes = [
       path: '',
       name: 'Setting',
       component: () => import('@/views/setting/index'),
-      meta: { title: '设置', icon: 'setting' }
+      meta: { title: '公司设置', icon: 'setting' }
     }]
   },
   {

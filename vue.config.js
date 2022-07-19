@@ -41,7 +41,8 @@ module.exports = {
       // 只要是axios发请求的时候，前面是以/abc开头的，就会被这块匹配到，就会自动帮我们做反向代理
       // 所有的当前这个人资接口url都是以 api开头的
       '/abc': {
-        target: 'http://ihrm.itheima.net/',
+        // http://ihrm.itheima.net
+        target: 'http://ihrm-java.itheima.net',
         changeOrigin: true,
         pathRewrite: {
           // 相当于是在做replace替换操作
