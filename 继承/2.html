@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // // a.call(b) -> 相当于 b.a()只执行一次 执行完了就释放了
+
+      // var a = 100;
+      // function fn() {
+      //   console.log(this.a);
+      // }
+      // var obj = {
+      //   a: 200,
+      // };
+      // // obj.fn = fn;
+      // // obj.fn();
+      // // obj可以去借fn方法
+      // fn.call(obj); //把fn方法借给obj来使用一次 obj.fn()只有一次 临时借用一次
+      // 借用构造函数继承
+      function Person(name, age) {
+        this.name = name; //ldh.name = name
+        this.age = age; //ldh.age = age
+      }
+      Person.prototype.eat = function () {
+        console.log("吃饭");
+      };
+
+      function Star(name, age) {
+        // 把Person当成一个普通的函数
+        //构造函数中this指向实例ldh
+        Person.call(this, name, age); //this.Person(name,age)
+      }
+
+      var ldh = new Star("刘德华", 60);
+      console.log(ldh);
+    </script>
+  </body>
+</html>

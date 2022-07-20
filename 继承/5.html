@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 组合继承 既能继承方法 也能继承属性
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      Person.prototype.eat = function () {
+        console.log("吃饭");
+      };
+
+      function Star(name, age) {
+        Person.call(this, name, age);
+      }
+      Star.prototype = Object.create(Person.prototype);
+      Star.prototype.constructor = Star; //让Star.prototype对应的原型的constructor指向Star
+      var ldh = new Star("刘德华", 60);
+      ldh.eat();
+      console.log(ldh);
+
+      // es6的类class继承方式
+
+      // 1. 原型链继承 Star.prototype = new Person() Star.prototype.constructor = Star
+      // 2. 借用构造函数继承 Person.call(this,name,age)
+      // 3. 组合继承 = 原型链继承 + 借用构造函数继承
+      // 4. 寄生组合继承 把Star.prototype = new Person()这一行变成 Star.prototype = Object.create(Person.prototype)
+      // 5. es6的类class继承方式 extends  super(调用父类的构造函数)
+    </script>
+  </body>
+</html>

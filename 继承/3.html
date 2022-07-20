@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 组合继承 既能继承方法 也能继承属性
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      Person.prototype.eat = function () {
+        console.log("吃饭");
+      };
+
+      function Star(name, age) {
+        Person.call(this, name, age);
+      }
+      Star.prototype = new Person(); //把Star构造函数的prototype指向一个Person实例
+      Star.prototype.constructor = Star; //让Star.prototype对应的原型的constructor指向Star
+      var ldh = new Star("刘德华", 60);
+      ldh.eat();
+      console.log(ldh);
+    </script>
+  </body>
+</html>
