@@ -28,3 +28,19 @@ export const addRole = ({ name, description }) => {
     data: { name, description }
   })
 }
+
+// 修改角色
+export const editRole = data => {
+  return request({
+    method: 'PUT',
+    url: `/sys/role/${data.id}`,
+    data
+  })
+}
+
+// 根据id查询公司信息
+export const getCompanyInfo = id => {
+  return request({
+    url: `/company/${id}`
+  })
+}

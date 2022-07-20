@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // find 找到这一项就返回这一项
+      // findIndex 找到这一项返回这一项对应的索引
+      var arr = [
+        { id: 1, value: "正式" },
+        { id: 2, value: "非正式" },
+      ];
+
+      var cellValue = 1;
+
+      console.log(arr.find((item) => item.id === cellValue).value);
+    </script>
+  </body>
+</html>

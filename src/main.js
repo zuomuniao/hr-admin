@@ -45,6 +45,13 @@ Object.keys(obj).forEach(item => {
   Vue.directive(item, obj[item])
 })
 
+// import PageTool from '@/components/PageTool'
+// Vue.component('PageTool',PageTool)
+// 什么时候用插件?我们封装了一堆的公共的组件供同事使用的时候 为了让同事使用起来方便
+import components from '@/components'
+// 会自动执行install方法
+Vue.use(components)
+
 new Vue({
   el: '#app',
   router,
@@ -52,3 +59,8 @@ new Vue({
   // h -> createElement
   render: h => h(App)
 })
+
+// 100个全局组件
+// 代码只要写一二行就可以直接全部导进来
+// this.$message
+// v-loading 指令
