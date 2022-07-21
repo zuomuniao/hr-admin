@@ -32,7 +32,7 @@
           ></el-table-column>
           <el-table-column label="聘用形式" prop="formOfEmployment">
             <template v-slot="scope">
-              {{ scope.row.formOfEmployment | formatFormType }}
+              {{ scope.row && scope.row.formOfEmployment | formatFormType }}
             </template>
           </el-table-column>
           <el-table-column label="部门" prop="departmentName"></el-table-column>
@@ -65,7 +65,12 @@ export default {
   components: {},
   filters: {
     formatFormType (id) {
-      return employees.hireType.find(item => item.id === id - 0).value
+      var obj = employees.hireType.find(item => item.id === id - 0)
+      if (obj) {
+        return employees.hireType.find(item => item.id === id - 0).value
+      } else {
+        return '未知'
+      }
     }
   },
   data () {
@@ -95,7 +100,12 @@ export default {
       // console.log(column)// 当前这一列相关的信息 比如说这一列有多宽
       // console.log(cellValue)// 单元的值
       // console.log(index)// 索引
-      return employees.hireType.find(item => item.id === cellValue - 0).value
+      var obj = employees.hireType.find(item => item.id === cellValue - 0)
+      if (obj) {
+        return employees.hireType.find(item => item.id === cellValue - 0).value
+      } else {
+        return '未知'
+      }
     }
   }
 }
