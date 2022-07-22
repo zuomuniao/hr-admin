@@ -6,3 +6,11 @@ export const getEmployee = ({ page, size }) => {
     params: { page, size }
   })
 }
+// 批量从excel中导入员工列表
+export const importEmployee = data => {
+  return request({
+    method: 'POST',
+    url: '/sys/user/batch',
+    data
+  })
+}

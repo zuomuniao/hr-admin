@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var arr = [
+        { 编号: 1, 名字: "张三" },
+        { 编号: 2, 名字: "李四" },
+      ];
+
+      // console.log(JSON.stringify(arr).replace(/编号/g, "id"));
+
+      // var arr = [
+      //   { id: 1, name: "张三" },
+      //   { id: 2, name: "李四" },
+      // ];
+
+      // var arr1 = [];
+      // arr.forEach(function (item) {
+      //   var obj = {};
+      //   obj.id = item.编号;
+      //   obj.name = item.名字;
+      //   arr1.push(obj);
+      // });
+
+      // console.log(arr1);
+
+      // 把一个数组映射成一个新的数组
+      var arr1 = arr.map((item) => {
+        return {
+          id: item.编号,
+          name: item.名字,
+        };
+      });
+
+      console.log(arr1);
+
+      // var arr = [2, 3, 4];
+      // // arr.map(旧的每一项=>{
+      // //  return 处理得到新的每一项
+      // // })
+      // arr.map((item) => {
+      //   return item * 2;
+      // });
+    </script>
+  </body>
+</html>

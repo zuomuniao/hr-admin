@@ -7,7 +7,7 @@ module.exports = {
    * @description Whether fix the header
    * 设置appMain右侧主体上面的header是不是固定定位的
    */
-  fixedHeader: false,
+  fixedHeader: true,
 
   /**
    * @type {boolean} true | false

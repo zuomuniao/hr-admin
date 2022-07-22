@@ -26,7 +26,7 @@ import Layout from '@/layout'
  */
 
 /**
- * constantRoutes
+ * constantRoutes 静态路由
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
@@ -138,6 +138,16 @@ const asyncRoutes = [
       name: 'Social',
       component: () => import('@/views/social/index'),
       meta: { title: '社保', icon: 'table' }
+    }]
+  },
+  {
+    path: '/import',
+    component: Layout,
+    hidden: true,
+    children: [{
+      path: '',
+      name: 'Import',
+      component: () => import('@/views/import/index')
     }]
   }
 ]

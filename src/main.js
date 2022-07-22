@@ -52,6 +52,11 @@ import components from '@/components'
 // 会自动执行install方法
 Vue.use(components)
 
+import * as filters from '@/filters'
+Object.keys(filters).forEach(item => {
+  Vue.filter(item, filters[item])
+})
+
 new Vue({
   el: '#app',
   router,
