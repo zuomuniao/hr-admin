@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Dep 被观察者 Watcher 观察者
+      // 被观察者 被依赖对象 主体 -> Dep -> 宝宝 baby 优衣库
+      // 观察者 订阅者  -> watcher -> 父母爷爷奶奶 张三 李四
+
+      // 创建一个Dep类
+      class Dep {
+        constructor(name) {
+          this.name = name;
+          this.watcherList = []; //用来登记哪些人要买衣服
+        }
+        add(watcher) {
+          this.watcherList.push(watcher);
+        }
+        notify() {
+          this.watcherList.forEach((item) => {
+            item.update();
+          });
+        }
+      }
+
+      class Watcher {
+        constructor(name) {
+          this.name = name;
+        }
+        update() {
+          console.log(this.name + "被通知到了");
+        }
+      }
+
+      // 这里面是一对多的关系 被观察者只有一个 观察者有一堆
+      //创建一个被观察者的实例
+      const dep = new Dep("宝宝");
+      //创建二个观察者
+      const father = new Watcher("爸爸");
+      const mother = new Watcher("妈妈");
+      //把这二个观察者添加到被观察者的列表中
+      dep.add(father);
+      dep.add(mother);
+      //当宝宝被观察者有需求的时候，就去通知所有的观察者
+      dep.notify();
+    </script>
+  </body>
+</html>

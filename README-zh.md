@@ -1,111 +1,92 @@
-# vue-admin-template
+一堆温度计 温度一变化，温度计度全部变了
+观察者模式
 
-> 这是一个极简的 vue admin 管理后台。它只包含了 Element UI & axios & iconfont & permission control & lint，这些搭建后台必要的东西。
+宝宝 妈妈 爸爸 爷爷 奶奶
 
-[线上地址](http://panjiachen.github.io/vue-admin-template)
+第一种思路 代码 开一个 setInterval 不停看有没有需求 有就过去服务 主动式推销
+第二种思路 父母就认为只要这小孩不哭说明没事 只要哭就相当通知父母有需求 赶紧过去
 
-[国内访问](https://panjiachen.gitee.io/vue-admin-template)
+优衣库突然有一款特别受欢迎，卖断货
 
-目前版本为 `v4.0+` 基于 `vue-cli` 进行构建，若你想使用旧版本，可以切换分支到[tag/3.11.0](https://github.com/PanJiaChen/vue-admin-template/tree/tag/3.11.0)，它不依赖 `vue-cli`。
+1. 张三 李四 王五 赵六 每天上午中午下午各跑一趟问有没有到货
+2. 公司人员 你们这几个人把你们电话号码登记一下 只要有新货到了，我会一个一个通知你们
 
-<p align="center">
-  <b>SPONSORED BY</b>
-</p>
-<p align="center">
-   <a href="https://finclip.com?from=vue_element" title="FinClip" target="_blank">
-      <img height="200px" src="https://gitee.com/panjiachen/gitee-cdn/raw/master/vue%E8%B5%9E%E5%8A%A9.png" title="FinClip">
-   </a>
-</p>
+优衣库 被观察者
+张三 李四 ... 观察者
 
-## Extra
+我们需要把观察者添加到被观察者通知列表中 只要是到货了， 被观察者就去列表中遍历 一个一个 notify 通知这些人
 
-如果你想要根据用户角色来动态生成侧边栏和 router，你可以使用该分支[permission-control](https://github.com/PanJiaChen/vue-admin-template/tree/permission-control)
+观察者模式可以实现代码简化
 
-## 相关项目
+1. 被观察者
+2. 观察者
+3. 观察者列表
 
-- [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
+优衣库 被观察者
+张三 李四 观察者
+优衣库需要把张三李四登记到列表中
+只要衣服到货了，就去 notify 客户
 
-- [electron-vue-admin](https://github.com/PanJiaChen/electron-vue-admin)
+发布订阅模式
+粉丝 微博 明星
 
-- [vue-typescript-admin-template](https://github.com/Armour/vue-typescript-admin-template)
+订阅者 平台 发布者
 
-- [awesome-project](https://github.com/PanJiaChen/vue-element-admin/issues/2312)
+好处
 
-写了一个系列的教程配套文章，如何从零构建后一个完整的后台项目:
+有一家公司 现在有一些临时性需求 需要一些人去帮他做一个项目 但是项目做完了 这些人就要离开 （外包）
 
-- [手摸手，带你用 vue 撸后台 系列一(基础篇)](https://juejin.im/post/59097cd7a22b9d0065fb61d2)
-- [手摸手，带你用 vue 撸后台 系列二(登录权限篇)](https://juejin.im/post/591aa14f570c35006961acac)
-- [手摸手，带你用 vue 撸后台 系列三 (实战篇)](https://juejin.im/post/593121aa0ce4630057f70d35)
-- [手摸手，带你用 vue 撸后台 系列四(vueAdmin 一个极简的后台基础模板,专门针对本项目的文章,算作是一篇文档)](https://juejin.im/post/595b4d776fb9a06bbe7dba56)
-- [手摸手，带你封装一个 vue component](https://segmentfault.com/a/1190000009090836)
+华为 -> 外包公司 -> 外包程序员
 
-## Build Setup
+eventBus 就是发布订阅模式
 
-```bash
-# 克隆项目
-git clone https://github.com/PanJiaChen/vue-admin-template.git
+一堆订阅者 一堆的发布者 多对多的关系
 
-# 进入项目目录
-cd vue-admin-template
+观察者模式和发布订阅模式的区别
+观察者模式 公司自己招人
+发布订阅模式 外包
 
-# 安装依赖
-npm install
+观察者模式定义了对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知，并自动更新
 
-# 建议不要直接使用 cnpm 安装以来，会有各种诡异的 bug。可以通过如下操作解决 npm 下载速度慢的问题
-npm install --registry=https://registry.npm.taobao.org
+1. 宝宝 -> 父母爷爷奶奶 一对多的依赖关系
+2. 宝宝哭 -> 父母爷爷奶奶赶紧过来服务 当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知，并自动更新
 
-# 启动服务
-npm run dev
-```
+这种模式特点
 
-浏览器访问 [http://localhost:9528](http://localhost:9528)
+1. 一对多
+2. 有二个主体 一个是被观察者 Dep 一个是观察者 watcher
 
-## 发布
+==================
+发布订阅模式
+在现在的发布订阅模式中，称为发布者的消息发送者不会将消息直接发送给订阅者，这意味着发布者和订阅者不知道彼此的存在。在发布者和订阅者之间存在第三个组件，称为调度中心或事件通道(event bus)，它维持着发布者和订阅者之间的联系，过滤所有发布者传入的消息并相应地分发它们给订阅者。
 
-```bash
-# 构建测试环境
-npm run build:stage
+这意味着发布者和订阅者不知道彼此的存在 => 明星不认识粉丝 华为 hr 也不认识这些外包人员
 
-# 构建生产环境
-npm run build:prod
-```
+有三个主体 发布者 调度中心 订阅者
 
-## 其它
+=============
 
-```bash
-# 预览发布环境效果
-npm run preview
+面试官说观察者模式和发布订阅模式的区别
 
-# 预览发布环境效果 + 静态资源分析
-npm run preview -- --report
+1. 主体数量不一样，观察者模式有二个主体 分别是被观察者 Dep 和观察者 watcher,发布订阅模式有三个主体 分别是发布者 调度中心（事件通道 ) 订阅者
+2. 发布订阅模式相比观察者模式多了个事件通道，事件通道作为调度中心，管理事件的订阅和发布工作，彻底隔绝了订阅者和发布者的依赖关系，订阅者和发布者是解耦的（不知道彼此存在）
 
-# 代码格式检查
-npm run lint
+你在朋友圈发了一个说说 发布订阅模式 外包
+你直接在某微信群里针对这些人说话 观察者模式 公司直招
 
-# 代码格式检查并自动修复
-npm run lint -- --fix
-```
+面试官问 观察者模式和发布订阅模式你怎么理解的?
 
-更多信息请参考 [使用文档](https://panjiachen.github.io/vue-element-admin-site/zh/)
+- 观察者模式是一种一对多的关系，主体有二个，分别是被观察者 Dep 和观察者 watcher 这种方式是两个主体直接关联 缺点是耦合性很强 回家吃饭 如果不用观察者模式 苹果现在出了下一款最新的 iphone,但是没货，第一种思路 所有的想买的人天天去 在没有拿到最新的苹果手机这些人啥也不用干 第二种思路 用观察者模式 苹果旗舰店把这些人想买的人登记一下 登记完了 这些人就可以回家做自己的事情，只要苹果有货了，就会通知这些人 -> vue 中数据响应式就用了观察者模式 一个数据变了，一堆组件中的各种插值表达式、v-bind 都会更新
+- 发布订阅模式 主体有三个 发布者 调度中心（事件通道） 订阅者 发布者和订阅者互相不知道彼此的存在 是解耦的 是通过调度中心关联的
+  明星 微博 粉丝 在 vue 中 eventBus 就是这种模式
+- 这二种模式的区别就在于发布订阅模式多了一个调度中心，从而实现解耦
 
-## 购买贴纸
+深拷贝和浅拷贝
 
-你也可以通过 购买[官方授权的贴纸](https://smallsticker.com/product/vue-element-admin) 的方式来支持 vue-element-admin - 每售出一张贴纸，我们将获得 2 元的捐赠。
-
-## Demo
-
-![demo](https://github.com/PanJiaChen/PanJiaChen.github.io/blob/master/images/demo.gif)
-
-## Browsers support
-
-Modern browsers and Internet Explorer 10+.
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| --------- | --------- | --------- | --------- |
-| IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions
-
-## License
-
-[MIT](https://github.com/PanJiaChen/vue-admin-template/blob/master/LICENSE) license.
-
-Copyright (c) 2017-present PanJiaChen
+- 如果对象只有一层，就可以用浅拷贝，如果对象有多层，就是对象的属性又是一个对象，就需要用深拷贝
+- 如果是浅拷贝 可以用{...obj}或 Object.assign({},obj)
+- 如果是深拷贝 就用 JSON.parse(JSON.stringify(obj))或者递归
+  - JSON.parse(JSON.stringify(obj))有缺点，当对象有方法的时候，方法会丢失
+  - 如果对象身上有方法，需要用递归
+    - 如果存在循环引用就会堆栈溢出
+      - 解决思路很简单 就是把处理好的对象存起来，在处理新的对象的时候，会先在这个存的地方找一找有没有处理好，如果有就直接返回就行了

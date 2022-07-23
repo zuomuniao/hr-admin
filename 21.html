@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // var obj = {
+      //   music:[],
+      //   sport:[]
+      // }
+
+      // Bus就是中间商 平台
+      class Bus {
+        constructor() {
+          this.obj = {}; //放订阅者
+        }
+        on(type, callback) {
+          // 先判断这个人是不是第一个对这个主题感兴趣的人
+          if (this.obj[type]) {
+            this.obj[type].push(callback);
+          } else {
+            this.obj[type] = [callback];
+          }
+        }
+        emit(type) {
+          this.obj[type].forEach((cb) => {
+            cb();
+          });
+        }
+      }
+
+      var eventBus = new Bus();
+      eventBus.on("music", function () {
+        console.log(1);
+      });
+      eventBus.on("music", function () {
+        console.log(2);
+      });
+      eventBus.on("sport", function () {
+        console.log(3);
+      });
+
+      eventBus.emit("music");
+    </script>
+  </body>
+</html>
