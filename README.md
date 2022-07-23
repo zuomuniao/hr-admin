@@ -85,3 +85,7 @@ el-table 中数据不能直接用,需要转换一下数据格式有两种方式�
 2. formatter
 
 聘用形式 在很多页面中都有这个数据
+
+客户端第一次访问服务器 资源需要去服务器下载下来，因为本地没有缓存 除了资源下下来 还有一些响应头存到本地
+expire,cache-control 强缓存 只要没有过期 不会和服务器打交道
+last-modified,etag 会和服务器进行协商，看本地旧的资源能不能继续用 请求头 if-modified-since if-none-match 304 200

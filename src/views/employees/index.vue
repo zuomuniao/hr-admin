@@ -18,7 +18,12 @@
             @click="$router.push('/import?type=user')"
             >excel导入</el-button
           >
-          <el-button type="primary" size="mini">新增员工</el-button>
+          <el-button
+            type="primary"
+            size="mini"
+            @click="addEmployeeVisible = true"
+            >新增员工</el-button
+          >
         </template>
       </PageTool>
 
@@ -59,24 +64,115 @@
             </template>
           </el-table-column>
           <el-table-column label="操作" width="350px" align="center">
-            <template>
+            <template v-slot="scope">
               <el-button type="text">查看</el-button>
               <el-button type="text">转正</el-button>
               <el-button type="text">调岗</el-button>
               <el-button type="text">离职</el-button>
-              <el-button type="text">角色</el-button>
+              <el-button type="text" @click="showRoleDialog(scope.row.id)"
+                >角色</el-button
+              >
               <el-button type="text">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
       </el-card>
     </div>
+    <el-dialog title="分配角色" :visible.sync="roleVisible">
+      <!-- 里面是有二个数组 一个是所有数据的数组 一个是选中的数组 -->
+      <el-checkbox-group v-model="checkList">
+        <el-checkbox v-for="item in roleList" :key="item.id" :label="item.id">
+          {{ item.name }}
+        </el-checkbox>
+      </el-checkbox-group>
+      <template #footer>
+        <el-button type="primary" @click="assignRoles">确定</el-button>
+        <el-button @click="roleVisible = false">取消</el-button>
+      </template>
+    </el-dialog>
+    <!-- 新增员工 -->
+    <el-dialog
+      title="新增员工"
+      :visible.sync="addEmployeeVisible"
+      @close="handleClose"
+    >
+      <el-form
+        ref="employeeRef"
+        label-width="80px"
+        :model="employeeForm"
+        :rules="employeeFormRules"
+      >
+        <el-form-item label="姓名" prop="username">
+          <el-input v-model="employeeForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号" prop="mobile">
+          <el-input v-model="employeeForm.mobile"></el-input>
+        </el-form-item>
+        <el-form-item label="入职时间" prop="timeOfEntry">
+          <el-date-picker
+            v-model="employeeForm.timeOfEntry"
+            type="date"
+            placeholder="选择日期"
+            clearable
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="聘用形式" prop="formOfEmployment">
+          <el-select
+            v-model="employeeForm.formOfEmployment"
+            placeholder="请选择"
+          >
+            <el-option
+              v-for="item in hireType"
+              :key="item.id"
+              :label="item.value"
+              :value="item.id"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="工号" prop="workNumber">
+          <el-input v-model="employeeForm.workNumber"></el-input>
+        </el-form-item>
+        <el-form-item label="组织名称" prop="departmentName">
+          <el-input
+            v-model="employeeForm.departmentName"
+            @focus="showDepartment"
+          ></el-input>
+          <el-tree
+            v-if="deparmentList.length > 0"
+            :data="deparmentList"
+            default-expand-all
+            :props="{ label: 'name' }"
+            @node-click="handleNodeClick"
+          ></el-tree>
+        </el-form-item>
+        <el-form-item label="转正时间" prop="correctionTime">
+          <el-date-picker
+            v-model="employeeForm.correctionTime"
+            type="date"
+            placeholder="选择日期"
+            clearable
+            style="width: 100%"
+          >
+          </el-date-picker>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button type="primary">确定</el-button>
+        <el-button @click="addEmployeeVisible = false">取消</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { getDepartmentsList } from '@/api/departments'
+import { validMobile } from '@/utils/validate'
+import { getUserDetailById } from '@/api/user'
+import { getRoleList } from '@/api/setting'
 // 把花裤衩 vue-element-admin excel导出 准备好表头 [] 准备好数据 二维数组
-import { getEmployee } from '@/api/employee'
+import { getEmployee, assignRoles } from '@/api/employee'
 import employees from '@/constant/employees'
 // 懒加载 写法
 // import Export2Excel from '@/vendor/Export2Excel'
@@ -94,13 +190,44 @@ export default {
     }
   },
   data () {
+    const validateMobile = (rule, value, callback) => {
+      validMobile(value) ? callback() : callback(new Error('手机号格式不对'))
+    }
     return {
       paramsObj: {
         page: 1,
         size: 5
       },
       employees: [],
-      total: null
+      total: null,
+      roleVisible: false,
+      checkList: [],
+      roleList: [],
+      id: null,
+      addEmployeeVisible: false,
+      employeeForm: {
+        username: '',
+        mobile: '',
+        formOfEmployment: '',
+        workNumber: '',
+        departmentName: '',
+        timeOfEntry: '',
+        correctionTime: ''
+      },
+      employeeFormRules: {
+        mobile: [
+          { required: true, message: '必填', trigger: 'blur' },
+          { validator: validateMobile, trigger: 'blur' }
+        ],
+        timeOfEntry: [
+          { required: true, message: '必填', trigger: 'blur' }
+        ],
+        workNumber: [
+          { required: true, message: '必填', trigger: 'blur' }
+        ]
+      },
+      hireType: employees.hireType,
+      deparmentList: []
     }
   },
   computed: {},
@@ -192,6 +319,45 @@ export default {
           merges // 设置合并规则
         })
       })
+    },
+    async showRoleDialog (id) {
+      this.id = id
+      const { rows } = await getRoleList({ page: 1, size: 9999 })
+      this.roleList = rows
+      const { roleIds } = await getUserDetailById(id)
+      this.checkList = roleIds
+      this.roleVisible = true
+    },
+    async assignRoles () {
+      const res = await assignRoles({
+        id: this.id,
+        roleIds: this.checkList
+      })
+      console.log(res)
+      this.roleVisible = false
+    },
+    handleClose () {
+      this.$refs.employeeRef.resetFields()
+      this.deparmentList = []
+    },
+    async showDepartment () {
+      const res = await getDepartmentsList()
+      // 我们的数据不能直接使用，而是先加工处理一下才能使用 递归在写的时候慢慢就意识到了 层次不确定
+      function tranferListToTree (list, pid) {
+        var list1 = []
+        list.forEach(item => {
+          if (item.pid === pid) {
+            list1.push(item)
+            item.children = tranferListToTree(list, item.id)
+          }
+        })
+        return list1
+      }
+      this.deparmentList = tranferListToTree(res.depts, '')
+    },
+    handleNodeClick (obj) {
+      this.employeeForm.departmentName = obj.name// 当前节点name赋值给表单中的部门名字
+      this.deparmentList = []// 关闭tree
     }
   }
 }

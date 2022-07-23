@@ -14,3 +14,12 @@ export const importEmployee = data => {
     data
   })
 }
+
+// 给员工分配角色
+export const assignRoles = ({ id, roleIds }) => {
+  return request({
+    method: 'PUT',
+    url: '/sys/user/assignRoles',
+    data: { id, roleIds }
+  })
+}
