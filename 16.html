@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="canvas"
+      width="800"
+      height="600"
+      style="border: 1px solid blue"
+    ></canvas>
+    <script>
+      // 博物馆
+      // 数学好 空间几何 3d 3dmax
+      // html5的一个画布 echarts底层就是canvas
+      // 抽奖 刮刮乐
+      // 第一步 先获取这个画布
+      var canvas = document.getElementById("canvas");
+      // 第二步 再在这个画布上创建一支画笔（2d）
+      var huabi = canvas.getContext("2d");
+      //第三步 开始画
+      huabi.fillRect(10, 20, 100, 200);
+    </script>
+  </body>
+</html>

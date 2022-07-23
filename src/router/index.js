@@ -149,8 +149,22 @@ const asyncRoutes = [
       name: 'Import',
       component: () => import('@/views/import/index')
     }]
+  },
+  {
+    path: '/employee/detail/:id',
+    component: Layout,
+    hidden: true,
+    children: [{
+      path: '',
+      name: 'EmployeeDetail',
+      component: () => import('@/views/employees/detail')
+    }]
   }
 ]
+
+// // 参数的写法
+// 1. url?id=1001 -> this.$route.query.id
+// 2. url/1001 /:id props:true  -> this.$route.params.id 可以实现解耦
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support

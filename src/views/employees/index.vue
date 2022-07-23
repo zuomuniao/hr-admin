@@ -37,7 +37,12 @@
           ></el-table-column>
           <el-table-column label="头像" prop="staffPhoto">
             <template v-slot="scope">
-              <img v-imgerror :src="scope.row.staffPhoto" style="width: 40px" />
+              <img
+                v-imgerror
+                :src="scope.row.staffPhoto"
+                style="width: 40px"
+                @click="showQrDialog(scope.row.staffPhoto)"
+              />
             </template>
           </el-table-column>
           <el-table-column label="手机号" prop="mobile"></el-table-column>
@@ -65,7 +70,11 @@
           </el-table-column>
           <el-table-column label="操作" width="350px" align="center">
             <template v-slot="scope">
-              <el-button type="text">查看</el-button>
+              <el-button
+                type="text"
+                @click="$router.push('/employee/detail/' + scope.row.id)"
+                >查看</el-button
+              >
               <el-button type="text">转正</el-button>
               <el-button type="text">调岗</el-button>
               <el-button type="text">离职</el-button>
@@ -163,10 +172,17 @@
         <el-button @click="addEmployeeVisible = false">取消</el-button>
       </template>
     </el-dialog>
+    <!-- 二维码对话框 -->
+    <el-dialog title="图片二维码" :visible.sync="qrcodeVisible">
+      <el-row type="flex" justify="center">
+        <canvas ref="canvas"></canvas>
+      </el-row>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import QRCode from 'qrcode'
 import { getDepartmentsList } from '@/api/departments'
 import { validMobile } from '@/utils/validate'
 import { getUserDetailById } from '@/api/user'
@@ -227,7 +243,8 @@ export default {
         ]
       },
       hireType: employees.hireType,
-      deparmentList: []
+      deparmentList: [],
+      qrcodeVisible: false
     }
   },
   computed: {},
@@ -358,6 +375,17 @@ export default {
     handleNodeClick (obj) {
       this.employeeForm.departmentName = obj.name// 当前节点name赋值给表单中的部门名字
       this.deparmentList = []// 关闭tree
+    },
+    showQrDialog (src) {
+      console.log(src)
+      // 数据变了，我们不能立马获取最新的DOM内容，因为视图不能立马更新
+      this.qrcodeVisible = true
+      this.$nextTick(() => {
+        QRCode.toCanvas(this.$refs.canvas, 'https://t11.baidu.com/it/u=3005961094,4112124005&fm=58', function (error) {
+          if (error) console.error(error)
+          console.log('success!')
+        })
+      })
     }
   }
 }
