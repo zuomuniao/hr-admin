@@ -7,7 +7,11 @@
     />
 
     <breadcrumb class="breadcrumb-container" />
-
+    <button @click="fn">abc</button>
+    <theme-picker
+      style="float: right; height: 26px; margin: -3px 8px 0 0"
+      @change="themeChange"
+    />
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -32,6 +36,7 @@
 </template>
 
 <script>
+import ThemePicker from '@/components/ThemePicker'
 // 当页面上有很多地方要做同样的DOM操作的时候 -> 指令
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
@@ -40,7 +45,8 @@ import Hamburger from '@/components/Hamburger'
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    ThemePicker
   },
   computed: {
     ...mapGetters([
@@ -56,6 +62,15 @@ export default {
     async logout () {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    fn () {
+      document.documentElement.requestFullscreen()
+    },
+    themeChange (val) {
+      this.$store.dispatch('settings/changeSetting', {
+        key: 'theme',
+        value: val
+      })
     }
   }
 }

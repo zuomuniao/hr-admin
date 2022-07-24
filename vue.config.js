@@ -62,6 +62,13 @@ module.exports = {
       alias: {
         '@': resolve('src')
       }
+    },
+    externals:
+    {
+      'vue': 'Vue',
+      'element-ui': 'ELEMENT',
+      'xlsx': 'XLSX',
+      'echarts': 'echarts'
     }
   },
   chainWebpack (config) {
@@ -136,4 +143,5 @@ module.exports = {
         }
       )
   }
+
 }

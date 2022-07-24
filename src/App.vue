@@ -1,10 +1,7 @@
 <template>
   <div id="app">
     <!-- 一级路由占位符 -->
-    <!-- <router-view /> -->
-    <p>{{ msg }}</p>
-    <p>{{ msg }}</p>
-    <input v-model="msg" type="text" />
+    <router-view />
   </div>
 </template>
 
