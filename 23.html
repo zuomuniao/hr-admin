@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let a = 100;
+      {
+        console.log(a); //结果多少 暂时性死区 它知道自己的世界有这个变量 但是还没到时机去使用
+        let a = 200;
+      }
+    </script>
+  </body>
+</html>

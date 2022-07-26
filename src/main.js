@@ -57,6 +57,10 @@ Object.keys(filters).forEach(item => {
   Vue.filter(item, filters[item])
 })
 
+import Print from 'vue-print-nb'
+// Global instruction
+Vue.use(Print)
+
 new Vue({
   el: '#app',
   router,

@@ -157,8 +157,10 @@ const asyncRoutes = [
     children: [{
       path: '',
       name: 'EmployeeDetail',
-      component: () => import('@/views/employees/detail')
+      component: () => import('@/views/employees/detail'),
+      props: true
     }]
+
   }
 ]
 
