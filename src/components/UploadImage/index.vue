@@ -37,7 +37,7 @@
         </span>
       </div>
     </el-upload>
-    <el-progress :percentage="50"></el-progress>
+    <el-progress :percentage="percent"></el-progress>
     <el-dialog :visible.sync="dialogVisible" title="预览">
       <img width="100%" :src="dialogImageUrl" alt="" />
     </el-dialog>
@@ -62,7 +62,8 @@ export default {
       dialogImageUrl: '',
       dialogVisible: false,
       disabled: false,
-      filesList: []
+      filesList: [],
+      percent: 0
     }
   },
   methods: {
@@ -81,6 +82,7 @@ export default {
       this.filesList = fileList
     },
     handleRequest (obj) {
+      var that = this// 把外面this赋值给that这个变量
       console.log(obj)
       cos.putObject({
         Bucket: 'heima123-1300357219', /* 写你的存储桶名字 */
@@ -90,7 +92,8 @@ export default {
         Body: obj.file, // 上传文件对象
         // 图片比较大的时候，会有一个进度效果
         onProgress: function (progressData) {
-          console.log(JSON.stringify(progressData))
+          // that可以拿到外面的this
+          that.percent = Math.ceil(progressData.loaded / progressData.total * 100)
         }
       }, (err, data) => {
         console.log(err || data)
