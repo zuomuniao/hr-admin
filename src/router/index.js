@@ -65,6 +65,7 @@ const asyncRoutes = [
     children: [{
       path: '',
       name: 'Approvals',
+
       component: () => import('@/views/approvals/index'),
       meta: { title: '审批', icon: 'tree-table' }
     }]
@@ -190,3 +191,11 @@ export default router
 
 //   ]
 // })
+
+// 思路：
+// 1. 首先不管是谁都有所有的静态路由表 const routes = [...constantRoutes]
+// 2. 当用户登录的时候 就会在state.user.userInfo.roles.menus中可以知道当前这个人有哪些页面权限
+// 3. 对asyncRoutes这个是完整版进行filter 根据当前用户页面权限点 得到一个新的数组
+// 4. router.addRoutes(筛选之后动态路由表)
+
+// 某用户能访问的路由表 = 所有的静态路由表 + 部分动态路由表
