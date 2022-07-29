@@ -8,10 +8,12 @@
       @change="handleChange"
     />
     <img :src="src" alt="" />
+    <el-button @click="fn">按钮</el-button>
   </div>
 </template>
 
 <script>
+// import { obj } from '@/mixins'
 import COS from 'cos-js-sdk-v5'
 var cos = new COS({
   SecretId: 'AKIDmKF1OZnGwPeh9MR6bwUofX80vd6OBRM9',
@@ -22,6 +24,9 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Dashboard',
+  directives: {},
+  filters: {},
+  // mixins: [obj],
   computed: {
     ...mapGetters([
       'name'

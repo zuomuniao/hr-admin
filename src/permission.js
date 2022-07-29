@@ -34,7 +34,6 @@ router.beforeEach(async (to, from, next) => {
         // 进门了，但是进门之后我要去的地方的路还没有铺好，直接走，掉坑里，多做一次跳转，再从门外往里进一次，跳转之前 把路铺好，再次进来的时候，路就铺好了
         next(to.path)
       }
-      console.log(router)
       next()// 放行
     }
   } else {

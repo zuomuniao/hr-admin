@@ -62,6 +62,9 @@ import Print from 'vue-print-nb'
 // Global instruction
 Vue.use(Print)
 
+import mixins from './mixins'
+Vue.mixin(mixins)
+
 new Vue({
   el: '#app',
   router,

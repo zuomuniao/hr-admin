@@ -1,6 +1,10 @@
 <template>
   <div class="dashboard-container">
-    <div class="app-container">社保</div>
+    <div class="app-container">
+      <el-button type="primary" :disabled="checkPermission('ADD-SOCIAL')"
+        >添加</el-button
+      >111
+    </div>
   </div>
 </template>
 
@@ -14,7 +18,9 @@ export default {
   computed: {},
   watch: {},
   created () { },
-  methods: {}
+  methods: {
+
+  }
 }
 </script>
 
