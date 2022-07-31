@@ -32,7 +32,9 @@ import '@/permission' // permission control 权限控制
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
-Vue.use(ElementUI)
+Vue.use(ElementUI, {
+  i18n: (key, value) => i18n.t(key, value)
+})
 
 // 控制台有一个生产提示，不重要
 Vue.config.productionTip = false
@@ -65,10 +67,15 @@ Vue.use(Print)
 import mixins from './mixins'
 Vue.mixin(mixins)
 
+// import axios from 'axios'
+// Vue.prototype.$axios = axios
+
+import i18n from '@/lang'
 new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   // h -> createElement
   render: h => h(App)
 })

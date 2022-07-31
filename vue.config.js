@@ -42,7 +42,7 @@ module.exports = {
       // 所有的当前这个人资接口url都是以 api开头的
       '/abc': {
         // http://ihrm.itheima.net
-        target: 'http://ihrm.itheima.net',
+        target: 'http://ihrm-java.itheima.net',
         changeOrigin: true,
         pathRewrite: {
           // 相当于是在做replace替换操作

@@ -15,6 +15,7 @@
           <span class="name">{{ name }}</span>
           <i class="el-icon-caret-bottom" style="color: #fff" />
         </div>
+
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
             <el-dropdown-item> 首页 </el-dropdown-item>
@@ -28,10 +29,27 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <div
+      style="float: right; height: 100%; line-height: 60px; margin-right: 20px"
+    >
+      <el-dropdown @command="handleCommand">
+        <span>
+          <svg-icon
+            icon-class="language"
+            style="color: #fff; font-size: 20px"
+          ></svg-icon>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="zh">中文</el-dropdown-item>
+          <el-dropdown-item command="en">en</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
 <script>
+import i18n from '@/lang'
 // 当页面上有很多地方要做同样的DOM操作的时候 -> 指令
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
@@ -56,6 +74,10 @@ export default {
     async logout () {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    handleCommand (command) {
+      console.log(command)
+      i18n.locale = command
     }
   }
 }

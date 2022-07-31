@@ -8,9 +8,15 @@
   </head>
   <body>
     <script>
-      var h1 = document.createElement("h1");
-      h1.innerHTML = "hello";
-      document.body.append(h1);
+      var documentFragment = document.createDocumentFragment();
+      var ul = document.createElement("ul");
+      documentFragment.append(ul);
+      for (var i = 0; i < 100; i++) {
+        var li = document.createElement("li");
+        li.innerHTML = i;
+        ul.append(li);
+      }
+      document.body.append(documentFragment);
     </script>
   </body>
 </html>
