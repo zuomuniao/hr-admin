@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // generator 函数的yield可以看做是一个个return，将函数切割成若干个函数。
+      // 运行generator函数可以生成一个迭代器。
+      // 通过迭代器的next方法，可以拿到对应的return值。
+      // 最后一个next方法，拿到的是generator函数的返回值。如果显示使用了return，那么next方法直接拿到return值，并且迭代器的状态为done。
+
+      // 函数要加一个星号 在函数里面有一个yield
+      function* fn() {
+        console.log(1)
+        // yield可以让代码暂停
+        yield 2
+        console.log(3)
+        yield 4
+        console.log(5)
+        yield 6
+      }
+
+      var g = fn()
+      // next相当于一个指针
+      console.log(g.next())
+      console.log(g.next())
+      console.log(g.next())
+      console.log(g.next())
+    </script>
+  </body>
+</html>

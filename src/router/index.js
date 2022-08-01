@@ -185,7 +185,7 @@ export const asyncRoutes = [
     hidden: true,
     children: [{
       path: '',
-      name: 'EmployeeDetail',
+      name: 'employeesInfo',
       component: () => import('@/views/employees/detail'),
       props: true
     }],
@@ -200,7 +200,7 @@ export const asyncRoutes = [
 // 2. url/1001 /:id props:true  -> this.$route.params.id 可以实现解耦
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   // 只是临时的写法 现在还没开始做权限 假设不管是谁都可以看到所有的页面
   // 只保留静态路由表

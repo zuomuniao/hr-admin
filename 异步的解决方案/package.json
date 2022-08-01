@@ -1,0 +1,10 @@
+{
+  "name": "abc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "co": "^4.6.0"
+  }
+}
