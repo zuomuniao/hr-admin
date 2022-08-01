@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <style>
+      .demo {
+        width: 300px;
+        height: 200px;
+        background-color: pink;
+      }
+      /* 进场动画 */
+      .v-enter {
+        transform: translateX(100%);
+      }
+      .v-enter-to {
+        transform: translateX(0);
+      }
+      .v-enter-active {
+        transition: all ease 1s;
+      }
+
+      /* 离场 */
+      .v-leave {
+        transform: translateX(0);
+      }
+      .v-leave-to {
+        transform: translateX(100%);
+      }
+
+      .v-leave-active {
+        transition: all ease 1s;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 类似ppt  -->
+    <div id="app">
+      <button @click="isShow=!isShow">切换</button>
+      <!-- 加了transition标签,会在显示隐藏的一瞬间会给demo这个标签添加类名  -->
+      <transition>
+        <div class="demo" v-if="isShow"></div>
+      </transition>
+    </div>
+    <script>
+      new Vue({
+        data() {
+          return {
+            isShow: false,
+          };
+        },
+      }).$mount("#app");
+    </script>
+  </body>
+</html>

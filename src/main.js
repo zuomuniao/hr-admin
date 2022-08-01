@@ -4,6 +4,7 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+// import '@/theme/index.css'
 // 国际化
 // import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 // 全局公共样式
@@ -32,6 +33,8 @@ import '@/permission' // permission control 权限控制
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
+import i18n from '@/lang'
+
 Vue.use(ElementUI, {
   i18n: (key, value) => i18n.t(key, value)
 })
@@ -70,7 +73,6 @@ Vue.mixin(mixins)
 // import axios from 'axios'
 // Vue.prototype.$axios = axios
 
-import i18n from '@/lang'
 new Vue({
   el: '#app',
   router,
@@ -84,3 +86,4 @@ new Vue({
 // 代码只要写一二行就可以直接全部导进来
 // this.$message
 // v-loading 指令
+

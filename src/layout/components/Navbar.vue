@@ -32,6 +32,10 @@
     <div
       style="float: right; height: 100%; line-height: 60px; margin-right: 20px"
     >
+      <theme-picker
+        style="vertical-align: bottom; height: 46px; margin-right: 10px"
+      />
+      <FullScreen></FullScreen>
       <el-dropdown @command="handleCommand">
         <span>
           <svg-icon
@@ -49,6 +53,8 @@
 </template>
 
 <script>
+import ThemePicker from '@/components/ThemePicker'
+import Cookies from 'js-cookie'
 import i18n from '@/lang'
 // 当页面上有很多地方要做同样的DOM操作的时候 -> 指令
 import { mapGetters } from 'vuex'
@@ -58,7 +64,8 @@ import Hamburger from '@/components/Hamburger'
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    ThemePicker
   },
   computed: {
     ...mapGetters([
@@ -78,6 +85,7 @@ export default {
     handleCommand (command) {
       console.log(command)
       i18n.locale = command
+      Cookies.set('locale', command)
     }
   }
 }

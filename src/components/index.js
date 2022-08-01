@@ -11,11 +11,17 @@ import PageTool from './PageTool'
 // 3. element-ui Vue.use(element) 几百个组 el-button Vue.component
 // 很多概念的出现都是为了让用户写代码更简单 promise async await 解决以前代码bug
 import UploadImage from './UploadImage'
+import MyDialog from './MyDialog'
+import FullScreen from './FullScreen'
+import TagsView from './TagsView'
 export default {
   // install 安装
   install (Vue) {
     Vue.component('PageTool', PageTool)
     Vue.component('UploadImage', UploadImage)
+    Vue.component('MyDialog', MyDialog)
+    Vue.component('FullScreen', FullScreen)
+    Vue.component('TagsView', TagsView)
     // Vue.prototype.a = 100
     // Vue.directive
     // Vue.filter

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <style>
+      .demo {
+        width: 300px;
+        height: 200px;
+        background-color: pink;
+      }
+      /* 进场动画 */
+      .v-enter {
+        transform: translateX(-100%);
+      }
+      .v-enter-to {
+        transform: translateX(0);
+      }
+      .v-enter-active {
+        transition: all ease 0.4s;
+      }
+
+      /* 离场 */
+      .v-leave {
+        transform: translateX(0);
+      }
+      .v-leave-to {
+        transform: translateX(100%);
+      }
+
+      .v-leave-active {
+        transition: all ease 0.4s;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. 手机端一开动画 就会卡 手机屏幕 还会闪  -->
+    <!-- 2. 项目主要是实现功能为主,动画一般不用太多 -->
+
+    <!-- 类似ppt  -->
+    <div id="app">
+      <button @click="isShow=!isShow">切换</button>
+      <!-- 加了transition标签,会在显示隐藏的一瞬间会给demo这个标签添加类名  -->
+      <transition mode="out-in">
+        <!-- 就地复用 有些同学以为key只能在v-for中使用,这个想法是错的 -->
+        <!-- key还可以用于if...else  -->
+        <div class="demo" v-if="isShow" key="a">111</div>
+        <div class="demo" v-else key="b">2222</div>
+      </transition>
+
+      <!-- <input type="text" v-if="isShow" key="c" />
+      <input type="text" v-else key="d" /> -->
+    </div>
+    <script>
+      // 1. 要加key 为什么加key 因为是同一个标签名 同一个标签会就地复用,动画就没了
+      // 2. mode="out-in" 旧的先离开新的再进入 mode="in-out" 新的先进来 旧的再出去
+      // 这是 <transition> 的默认行为 - 进入和离开同时发生。
+      new Vue({
+        data() {
+          return {
+            isShow: false,
+          };
+        },
+      }).$mount("#app");
+    </script>
+  </body>
+</html>
